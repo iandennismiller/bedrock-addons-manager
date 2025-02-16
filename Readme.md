@@ -1,4 +1,4 @@
-# Minecraft Bedrock Addon Manager 1.0
+# Minecraft Bedrock Addons Manager 1.0
 
 Manage addons for Minecraft Bedrock Server and the worlds they host.
 
