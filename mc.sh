@@ -178,7 +178,7 @@ function show_help() {
     echo "Minecraft Addon Manager 1.0"
     echo
     echo "Usage:"
-    echo "\$ $(basename $0) <enable|disable> <behavior|resource> <world_name> <addon_name>"
+    echo "\$ $(basename $0) <enable|disable> <behavior|resource> <addon_name> <world_name>"
     echo
     echo "Example: enable an addon called 'Some Addon 1.2' for a world called 'My Cool World'"
     echo "1. Unzip the addon, then split into resource and/or behavior packs."
