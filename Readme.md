@@ -1,24 +1,26 @@
 # Minecraft Addon Manager 1.0
 
-Manage addons for Minecraft Bedrock servers and the worlds they host.
+Manage addons for Minecraft Bedrock Server and the worlds they host.
 
 https://github.com/iandennismiller/bedrock-addons-admin
 
-This bash script simplifies the task of enabling/disabling addons for worlds on Minecraft Bedrock servers.
+This bash script simplifies the task of enabling/disabling addons for worlds hosted on Minecraft Bedrock Server.
+If you use Docker to run Minecraft Bedrock Server from a Linux image (e.g. [itzg/minecraft-bedrock-server](https://github.com/itzg/minecraft-bedrock-server)), then this script will probably *just work*.
 
-The most useful thing this script does is to copy the UUID from addons and place it in the correct JSON files in your worlds.
-
-All resource packs and behavior packs are stored in `/addons/resource_packs` and `/addons/behavior_packs` - each in its own subdirectory.
-If you have `Some Addon 0.2 by cooldude.mcpack` file, unzip that file and figure out if it contains a resource pack, a behavior pack, or both.
-For example, if it is a resource pack, put the unzipped contents into a new folder called `/addons/resource_packs/some-addon-0.2`.
+The most useful thing this script does is to copy the UUID from addons `manifest.json` and place it in the correct JSON files in your worlds.
+(That is the technical explanation for how Minecraft Bedrock Server actually puts addons *into* worlds.)
 
 ## Installation
 
-[jq](https://github.com/jqlang/jq) is required.
+[jq](https://github.com/jqlang/jq) is required. Many Linux distributions provide this by default.
 
-To install, just `chmod 755 mc.sh` and run it.
+To install, just `chmod 755 mc.sh` and run it. Consider moving `mc.sh` to `/addons` for convenience.
 
 ## Usage
+
+To use this script, put resource packs in `/addons/resource_packs` and behavior packs in `/addons/behavior_packs`.
+If you have `Some Addon 0.2 by cooldude.mcpack` file, unzip that file and figure out if it contains a resource pack, a behavior pack, or both.
+For example, if it is a resource pack, put the unzipped contents into a new folder called `/addons/resource_packs/some-addon-0.2`.
 
 ```bash
 mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
