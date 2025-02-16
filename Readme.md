@@ -1,8 +1,8 @@
-# Minecraft Addon Manager 1.0
+# Minecraft Bedrock Addon Manager 1.0
 
 Manage addons for Minecraft Bedrock Server and the worlds they host.
 
-https://github.com/iandennismiller/bedrock-addons-admin
+https://github.com/iandennismiller/bedrock-addons-manager
 
 This bash script simplifies the task of enabling/disabling addons for worlds hosted on Minecraft Bedrock Server.
 If you use Docker to run Minecraft Bedrock Server from a Linux image (e.g. [itzg/minecraft-bedrock-server](https://github.com/itzg/minecraft-bedrock-server)), then this script will probably *just work*.
