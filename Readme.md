@@ -17,13 +17,13 @@ To install, just `chmod 755 mc.sh` and run it.
 ## Usage
 
 ```bash
-mc.sh <enable|disable> <behavior|resource> <world_name> <addon_name>
+mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
 ```
 
 To use a custom ADDONS_PATH or DATA_PATH:
 
 ```bash
-ADDONS_PATH=/somewhere mc.sh <enable|disable> <behavior|resource> <world_name> <addon_name>
+ADDONS_PATH=/somewhere mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
 ```
 
 ## Example
