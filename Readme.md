@@ -5,10 +5,12 @@ Manage addons for Minecraft Bedrock servers and the worlds they host.
 https://github.com/iandennismiller/bedrock-addons-admin
 
 This bash script simplifies the task of enabling/disabling addons for worlds on Minecraft Bedrock servers.
-All resource packs and behavior packs are stored in `/addons/resource_packs` and `/addons/behavior_packs` - each in its own subdirectory.
-This script is a quick way to link these addons to servers and worlds.
 
 The most useful thing this script does is to copy the UUID from addons and place it in the correct JSON files in your worlds.
+
+All resource packs and behavior packs are stored in `/addons/resource_packs` and `/addons/behavior_packs` - each in its own subdirectory.
+If you have `Some Addon 0.2 by cooldude.mcpack` file, unzip that file and figure out if it contains a resource pack, a behavior pack, or both.
+For example, if it is a resource pack, put the unzipped contents into a new folder called `/addons/resource_packs/some-addon-0.2`.
 
 ## Installation
 
@@ -42,3 +44,25 @@ mc.sh enable resource 'some-addon-1.2' 'My Cool World'
 mc.sh enable behavior 'some-addon-1.2' 'My Cool World'
 ```
 
+## Docker example with itzg/minecraft-bedrock-server
+
+I use [itzg/minecraft-bedrock-server](https://github.com/itzg/minecraft-bedrock-server) to run Minecraft Bedrock.
+
+In the following example, I demonstrate using `/data` and `/addons` for a live server.
+
+```bash
+docker run --rm \
+    --name minecraft \
+    -e EULA=TRUE \
+    -p 19132:19132/udp \
+    -p 19132:19132/tcp \
+    -v minecraft-data:/data \
+    -v minecraft-addons:/addons \
+    itzg/minecraft-bedrock-server
+```
+
+Copy `mc.sh` to `/addons` and invoke it inside the minecraft bedrock server container:
+
+```bash
+docker exec -it minecraft /addons/mc.sh enable some-addon-1.2 my-cool-world
+```
