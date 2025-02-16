@@ -2,6 +2,8 @@
 
 Manage addons for Minecraft Bedrock servers and the worlds they host.
 
+https://github.com/iandennismiller/bedrock-addons-admin
+
 This bash script simplifies the task of enabling/disabling addons for worlds on Minecraft Bedrock servers.
 All resource packs and behavior packs are stored in `/addons/resource_packs` and `/addons/behavior_packs` - each in its own subdirectory.
 This script is a quick way to link these addons to servers and worlds.
