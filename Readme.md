@@ -14,25 +14,26 @@ The most useful thing this script does is to copy the UUID from addons `manifest
 
 [jq](https://github.com/jqlang/jq) is required. Many Linux distributions provide this by default.
 
-To install, just `chmod 755 mc.sh` and run it.
+To install, just `chmod 755 mc.sh` and run it on the command line with `./mc.sh` or `bash mc.sh`.
 
 ## Usage
 
 ```bash
-mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
+./mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
 ```
 
 To use this script, put resource packs in `/addons/resource_packs` and behavior packs in `/addons/behavior_packs`.
 If you have `Some Addon 0.2 by cooldude.mcpack` file, unzip that file and figure out if it contains a resource pack, a behavior pack, or both.
 For example, if it is a resource pack, put the unzipped contents into a new folder called `/addons/resource_packs/some-addon-0.2`.
 
-Consider moving `mc.sh` to `/addons` for convenience.
-
-To use a custom ADDONS_PATH or DATA_PATH:
+The environment variables `ADDONS_PATH` and `DATA_PATH` control where `mc.sh` will look for files.
+One way to use a custom value is:
 
 ```bash
-ADDONS_PATH=/somewhere mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
+ADDONS_PATH=/other-addons-folder ./mc.sh ...
 ```
+
+Consider moving `mc.sh` to `/addons` for convenient access inside a Docker container.
 
 ## Example
 
