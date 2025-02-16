@@ -175,7 +175,7 @@ function disable_resource() {
 }
 
 function show_help() {
-    echo "Minecraft Addon Manager 1.0"
+    echo "Minecraft Bedrock Addons Manager 1.0"
     echo
     echo "Usage:"
     echo "\$ $(basename $0) <enable|disable> <behavior|resource> <addon_name> <world_name>"
