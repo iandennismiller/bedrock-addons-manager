@@ -22,6 +22,12 @@ To install, just `chmod 755 mc.sh` and run it on the command line with `./mc.sh`
 ./mc.sh <enable|disable> <behavior|resource> <addon_name> <world_name>
 ```
 
+This real-world example enables the `camouflage-doors` addon for `my-cool-world`.
+
+```bash
+./mc.sh enable resource camouflage-doors my-cool-world
+```
+
 To use this script, put resource packs in `/addons/resource_packs` and behavior packs in `/addons/behavior_packs`.
 If you have `Some Addon 0.2 by cooldude.mcpack` file, unzip that file and figure out if it contains a resource pack, a behavior pack, or both.
 For example, if it is a resource pack, put the unzipped contents into a new folder called `/addons/resource_packs/some-addon-0.2`.
@@ -34,6 +40,40 @@ ADDONS_PATH=/other-addons-folder ./mc.sh ...
 ```
 
 Consider moving `mc.sh` to `/addons` for convenient access inside a Docker container.
+
+### Directory structure
+
+After unpacking some behavior packs and resource packs, it should look like this:
+
+```bash
+# cd /addons && find . -maxdepth 2
+.
+./mc.sh
+./behavior_packs
+./behavior_packs/security-cameras
+./behavior_packs/furnideco-remake
+./behavior_packs/better-on-bedrock-1.21.50
+./behavior_packs/more-simple-structures
+./behavior_packs/camouflage-doors
+./behavior_packs/better-on-bedrock-1.21.40
+./behavior_packs/more-tools
+./behavior_packs/instant-structures
+./behavior_packs/simple-waystone
+./behavior_packs/mr-cray-fish-furniture
+./resource_packs
+./resource_packs/security-cameras
+./resource_packs/furnideco-remake
+./resource_packs/crop-redstone
+./resource_packs/better-on-bedrock-1.21.50
+./resource_packs/more-simple-structures
+./resource_packs/camouflage-doors
+./resource_packs/luminous-dreams
+./resource_packs/better-on-bedrock-1.21.40
+./resource_packs/more-tools
+./resource_packs/instant-structures
+./resource_packs/simple-waystone
+./resource_packs/mr-cray-fish-furniture
+```
 
 ## Example
 
@@ -66,8 +106,10 @@ docker run --rm \
     itzg/minecraft-bedrock-server
 ```
 
-Copy `mc.sh` to `/addons` and invoke it inside the minecraft bedrock server container:
+Copy `mc.sh` to `/addons` and invoke it inside the minecraft bedrock server container.
+
+The following example adds [camouflage-doors](https://www.curseforge.com/minecraft-bedrock/addons/camouflage-door-addon) to a world called `my-cool-world` which is served from the docker container called `minecraft-red`.
 
 ```bash
-docker exec -it minecraft /addons/mc.sh enable some-addon-1.2 my-cool-world
+docker exec -it minecraft-red /addons/mc.sh enable resource camouflage-doors my-cool-world
 ```
