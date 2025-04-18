@@ -14,7 +14,7 @@ The most useful thing this script does is to copy the UUID from addons `manifest
 
 [jq](https://github.com/jqlang/jq) is required. Many Linux distributions provide this by default.
 
-To install, just `chmod 755 mc.sh` and run it on the command line with `./mc.sh` or `bash mc.sh`.
+To install, just `chmod 755 mc.sh` and run it in the bedrock server data directory.
 
 ## Usage
 
@@ -43,36 +43,69 @@ Consider moving `mc.sh` to `/addons` for convenient access inside a Docker conta
 
 ### Directory structure
 
-After unpacking some behavior packs and resource packs, it should look like this:
+After unpacking some behavior packs and resource packs to the addons folder, it should look like this:
 
 ```bash
-# cd /addons && find . -maxdepth 2
-.
-./mc.sh
-./behavior_packs
-./behavior_packs/security-cameras
-./behavior_packs/furnideco-remake
-./behavior_packs/better-on-bedrock-1.21.50
-./behavior_packs/more-simple-structures
-./behavior_packs/camouflage-doors
-./behavior_packs/better-on-bedrock-1.21.40
-./behavior_packs/more-tools
-./behavior_packs/instant-structures
-./behavior_packs/simple-waystone
-./behavior_packs/mr-cray-fish-furniture
-./resource_packs
-./resource_packs/security-cameras
-./resource_packs/furnideco-remake
-./resource_packs/crop-redstone
-./resource_packs/better-on-bedrock-1.21.50
-./resource_packs/more-simple-structures
-./resource_packs/camouflage-doors
-./resource_packs/luminous-dreams
-./resource_packs/better-on-bedrock-1.21.40
-./resource_packs/more-tools
-./resource_packs/instant-structures
-./resource_packs/simple-waystone
-./resource_packs/mr-cray-fish-furniture
+# find /addons -maxdepth 2 | sort
+/addons
+/addons/behavior_packs
+/addons/behavior_packs/better-on-bedrock-1.21.40
+/addons/behavior_packs/better-on-bedrock-1.21.50
+/addons/behavior_packs/camouflage-doors
+/addons/behavior_packs/furnideco-remake
+/addons/behavior_packs/instant-structures
+/addons/behavior_packs/more-simple-structures
+/addons/behavior_packs/more-tools
+/addons/behavior_packs/mr-cray-fish-furniture
+/addons/behavior_packs/security-cameras
+/addons/behavior_packs/simple-waystone
+/addons/mc.sh
+/addons/resource_packs
+/addons/resource_packs/better-on-bedrock-1.21.40
+/addons/resource_packs/better-on-bedrock-1.21.50
+/addons/resource_packs/camouflage-doors
+/addons/resource_packs/crop-redstone
+/addons/resource_packs/furnideco-remake
+/addons/resource_packs/instant-structures
+/addons/resource_packs/luminous-dreams
+/addons/resource_packs/more-simple-structures
+/addons/resource_packs/more-tools
+/addons/resource_packs/mr-cray-fish-furniture
+/addons/resource_packs/security-cameras
+/addons/resource_packs/simple-waystone
+```
+
+For reference, your bedrock server directory should look like this.
+You will need to run `mc.sh` inside this directory.
+
+```bash
+# find /data -maxdepth 1 | sort
+/data
+/data/Dedicated_Server.txt
+/data/allowlist.json
+/data/backup-pre-1.21.60.10
+/data/backup-pre-1.21.71.01
+/data/bedrock_server-1.21.71.01
+/data/bedrock_server_how_to.html
+/data/behavior_packs
+/data/config
+/data/definitions
+/data/development_behavior_packs
+/data/development_resource_packs
+/data/development_skin_packs
+/data/minecraftpe
+/data/permissions.json
+/data/premium_cache
+/data/profanity_filter.wlist
+/data/release-notes.txt
+/data/resource_packs
+/data/resource_packs.bak
+/data/restify.err
+/data/server.properties
+/data/treatments
+/data/world_templates
+/data/worlds
+/data/worlds.bak
 ```
 
 ## Example
