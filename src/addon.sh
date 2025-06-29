@@ -1,21 +1,3 @@
-function get_manifest_path() {
-    local ADDONS_PATH=$1
-    local ADDON_NAME=$2
-    local ADDON_TYPE=$3
-    local ADDON_PATH=$(get_global_addon_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")
-    echo "$ADDON_PATH/manifest.json"
-}
-
-function get_addon_uuid() {
-    local MANIFEST_PATH=$1
-    echo $(jq -r '.header.uuid' "$MANIFEST_PATH")
-}
-
-function get_addon_version() {
-    local MANIFEST_PATH=$1
-    echo $(jq -r '.header.version' "$MANIFEST_PATH")
-}
-
 function get_global_addon_path() {
     local ADDONS_PATH=$1
     local ADDON_NAME=$2
@@ -30,17 +12,7 @@ function get_server_addon_path() {
     echo "$DATA_PATH/${ADDON_TYPE}_packs/$ADDON_NAME"
 }
 
-function exit_if_addon_uuid_not_in_manifest() {
-    local MANIFEST_PATH=$1
-
-    # exit if ADDON_UUID is not in manifest
-    if [ -z $(get_addon_uuid "$MANIFEST_PATH") ]; then
-        echo "ERROR: $MANIFEST_PATH is missing uuid"
-        exit 1
-    fi
-}
-
-function link_addon_path() {
+function link_addon() {
     local ADDON_NAME=$1
     local ADDON_TYPE=$2
 
@@ -50,5 +22,39 @@ function link_addon_path() {
     # link addon to data path if it does not exist
     if [ ! -d "$ADDON_PATH" ]; then
         ln -s "$ADDON_PATH" "$SERVER_PATH"
+    fi
+}
+
+function modify_addon() {
+    local ADDON_NAME=$1
+    local WORLD_NAME=$2
+    local ADDON_TYPE=$3
+    local ADDON_ACTION=$4
+
+    local WORLD_JSON=$(get_world_json "$DATA_PATH" "$WORLD_NAME" "$ADDON_TYPE")
+    local MANIFEST_PATH=$(get_global_addon_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")/manifest.json
+    local ADDON_UUID=$(get_addon_uuid "$MANIFEST_PATH")
+    local ADDON_VERSION=$(get_addon_version "$MANIFEST_PATH")
+
+    show_config "$ADDONS_PATH" "$DATA_PATH" "$WORLD_NAME" "$ADDON_NAME" "$ADDON_TYPE" \
+        "$MANIFEST_PATH" "$WORLD_JSON" "$ADDON_UUID" "$ADDON_VERSION"
+
+    if [ "$ADDON_ACTION" != "enable" ] && [ "$ADDON_ACTION" != "disable" ]; then
+        echo "ERROR: Invalid action '$ADDON_ACTION'. Use 'enable' or 'disable'."
+        exit 1
+    fi
+
+    if [ "$ADDON_ACTION" == "enable" ]; then
+        exit_if_addon_uuid_not_in_manifest "$MANIFEST_PATH"
+        link_addon "$ADDON_NAME" "$ADDON_TYPE"
+        create_world_json "$WORLD_JSON"
+        exit_if_addon_uuid_in_world_json "$WORLD_JSON"
+        add_addon_to_world_json "$WORLD_JSON" "$ADDON_UUID" "$ADDON_VERSION"
+        echo "Addon $ADDON_NAME of type $ADDON_TYPE enabled for world $WORLD_NAME."
+    else
+        exit_if_addon_uuid_not_in_manifest "$MANIFEST_PATH"
+        exit_if_addon_uuid_not_in_world_json "$WORLD_JSON"
+        remove_addon_from_world_json "$WORLD_JSON" "$ADDON_UUID"
+        echo "Addon $ADDON_NAME of type $ADDON_TYPE disabled for world $WORLD_NAME."
     fi
 }

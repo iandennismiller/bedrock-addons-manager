@@ -1,14 +1,17 @@
-debug:
-	@cd src && ./debug.sh
+all: build run
+	@echo ok
+
+run:
+	@./mc.sh
 
 build:
-	cat \
-		src/preamble.sh \
-		src/addon.sh \
-		src/world.sh \
-		src/commands.sh \
-		src/help.sh \
-		src/args.sh \
-		src/main.sh \
-		> mc.sh
+	cd src && cat \
+		preamble.sh \
+		addon.sh \
+		manifest.sh \
+		world.sh \
+		args.sh \
+		messages.sh \
+		main.sh \
+		> ../mc.sh
 	chmod 755 mc.sh

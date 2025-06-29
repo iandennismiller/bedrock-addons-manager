@@ -1,3 +1,15 @@
+function show_config() {
+    echo "ADDONS_PATH: $1"
+    echo "DATA_PATH: $2"
+    echo "WORLD_NAME: $3"
+    echo "ADDON_NAME: $4"
+    echo "ADDON_TYPE: $4"
+    echo "MANIFEST_PATH: $6"
+    echo "WORLD_JSON: $7"
+    echo "ADDON_UUID: $8"
+    echo "ADDON_VERSION: $9"
+}
+
 function show_help() {
     echo "Minecraft Bedrock Addons Manager 1.0"
     echo
@@ -18,6 +30,4 @@ function show_help() {
     echo "Worlds path:      $DATA_PATH/worlds"
     echo "Behavior packs:   $ADDONS_PATH/behavior_packs"
     echo "Resource packs:   $ADDONS_PATH/resource_packs"
-
-    exit 1
 }
