@@ -12,6 +12,17 @@ function get_server_addon_path() {
     echo "$DATA_PATH/${ADDON_TYPE}_packs/$ADDON_NAME"
 }
 
+function addon_exists() {
+    local ADDONS_PATH=$1
+    local ADDON_NAME=$2
+    local ADDON_TYPE=$3
+
+    local ADDON_PATH=$(get_global_addon_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")
+    if [ -d "$ADDON_PATH" ]; then
+        echo "yes"
+    fi
+}
+
 function link_addon() {
     local ADDON_NAME=$1
     local ADDON_TYPE=$2

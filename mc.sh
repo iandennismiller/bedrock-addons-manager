@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Ian Dennis Miller
+# https://github.com/iandennismiller/bedrock-addons-manager
+# revision: c21cdaeb48191bfde3f5b855eb3d7e58ff22ae8e 
 
 function get_global_addon_path() {
     local ADDONS_PATH=$1
@@ -34,7 +38,7 @@ function modify_addon() {
     local ADDON_ACTION=$4
 
     local WORLD_JSON=$(get_world_json "$DATA_PATH" "$WORLD_NAME" "$ADDON_TYPE")
-    local MANIFEST_PATH=$(get_manifest_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")
+    local MANIFEST_PATH=$(get_global_addon_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")/manifest.json
     local ADDON_UUID=$(get_addon_uuid "$MANIFEST_PATH")
     local ADDON_VERSION=$(get_addon_version "$MANIFEST_PATH")
 
@@ -60,14 +64,6 @@ function modify_addon() {
         echo "Addon $ADDON_NAME of type $ADDON_TYPE disabled for world $WORLD_NAME."
     fi
 }
-function get_manifest_path() {
-    local ADDONS_PATH=$1
-    local ADDON_NAME=$2
-    local ADDON_TYPE=$3
-    local ADDON_PATH=$(get_global_addon_path "$ADDONS_PATH" "$ADDON_NAME" "$ADDON_TYPE")
-    echo "$ADDON_PATH/manifest.json"
-}
-
 function get_addon_uuid() {
     local MANIFEST_PATH=$1
     echo $(jq -r '.header.uuid' "$MANIFEST_PATH")
@@ -87,8 +83,6 @@ function exit_if_addon_uuid_not_in_manifest() {
         exit 1
     fi
 }
-#!/bin/bash
-
 function get_world_json() {
     local DATA_PATH=$1
     local WORLD_NAME=$2
@@ -152,34 +146,34 @@ function parse-args() {
 
     if [ -z "$action" ]; then
         echo "ERROR: Missing action"
-        show_help
+        show_help; exit 1
     fi
 
     if [ -z "$type" ]; then
         echo "ERROR: Missing type"
-        show_help
+        show_help; exit 1
     fi
 
     if [ -z "$world_name" ]; then
         echo "ERROR: Missing world_name"
-        show_help
+        show_help; exit 1
     fi
 
     if [ -z "$addon_name" ]; then
         echo "ERROR: Missing addon_name"
-        show_help
+        show_help; exit 1
     fi
 
     # Validate action
     if [[ "$action" != "enable" && "$action" != "disable" ]]; then
         echo "ERROR: Invalid action '$action'. Use 'enable' or 'disable'."
-        show_help
+        show_help; exit 1
     fi
 
     # Validate type
     if [[ "$type" != "behavior" && "$type" != "resource" ]]; then
         echo "ERROR: Invalid type '$type'. Use 'behavior' or 'resource'."
-        show_help
+        show_help; exit 1
     fi
 
     modify_addon "$addon_name" "$world_name" "$type" "$action"
@@ -216,8 +210,6 @@ function show_help() {
     echo "Worlds path:      $DATA_PATH/worlds"
     echo "Behavior packs:   $ADDONS_PATH/behavior_packs"
     echo "Resource packs:   $ADDONS_PATH/resource_packs"
-
-    exit 1
 }
 if [ -z "$ADDONS_PATH" ]; then
     ADDONS_PATH="/addons"
