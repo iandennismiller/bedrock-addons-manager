@@ -1,4 +1,4 @@
-# Minecraft Bedrock Addons Manager
+# Bedrock Addons Manager
 
 Manage addons for Minecraft Bedrock Server.
 
@@ -27,19 +27,22 @@ For notes about how to configure and organize the bedrock server so `mc.sh` can 
 Once mc.sh is installed and the bedrock server is configured, run it like this:
 
 ```bash
-mc.sh $ACTION $ADDON_TYPE $ADDON_NAME $WORLD_NAME
+mc.sh ACTION [WORLD_NAME] [ADDON_NAME]
 ```
 
-- ACTION may be `enable` or `disable`
-- ADDON_TYPE may be `behavior` or `resource`
-- ADDON_NAME is the folder name of the addon
+- ACTION may be
+  - `enable`
+  - `disable`
+  - `list`
+  - `list-all`
+  - `help`
 - WORLD_NAME is the folder name world on the server
+- ADDON_NAME is the folder name of the addon
 
 This real-world example enables the `camouflage-doors` addon for `my-cool-world`.
 
 ```bash
-mc.sh enable resource camouflage-doors my-cool-world
-mc.sh enable behavior camouflage-doors my-cool-world
+mc.sh enable my-cool-world camouflage-doors
 ```
 
 For more usage examples, see [/docs/example.md](/docs/example.md).

@@ -8,6 +8,7 @@ fi
 
 if [ $# -eq 0 ]; then
     show_help
+    exit 1
 fi
 
 parse-args "$@"

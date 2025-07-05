@@ -24,5 +24,5 @@ Copy `mc.sh` to `/addons` and invoke it inside the minecraft bedrock server cont
 The following example adds [camouflage-doors](https://www.curseforge.com/minecraft-bedrock/addons/camouflage-door-addon) to a world called `my-cool-world` which is served from the docker container called `minecraft-red`.
 
 ```bash
-docker exec -it minecraft-red /addons/mc.sh enable resource camouflage-doors my-cool-world
+docker exec -it minecraft-red /addons/mc.sh enable my-cool-world camouflage-doors
 ```
